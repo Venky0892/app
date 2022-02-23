@@ -6,9 +6,11 @@
 
 ## Technologies Used
 
+* _Neural Networks_
+* _Data Labelling using Labellimg and Azure data labelling tool_
 * _YoloV5 Algorithm, Fastrcnnrestnet-50_
 * _Azure AutoML_
-* _YoloV5_
+* _YoloV5 (Best model so far)_
 * _Streamlit_
 * _Docker_
 
