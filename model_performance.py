@@ -121,7 +121,7 @@ def image_loading(scoring_uri, key, category):
             name.append(filename)
             ground_truth.append(gtruth)
             predicted.append(pred)
-        st.metric(label = 'Predicted no of class: ', value = inf.total_value(n))
+        st.sidebar.metric(label = 'Correctly predicted: ', value = inf.total_value(n))
 
    
         data = {'Filename': name,
@@ -141,7 +141,7 @@ def image_loading(scoring_uri, key, category):
         df_cm.columns.name = 'Predicted'
         plt.figure(figsize = (20,20))
         # sn.set(font_scale=1.4)#for label size
-        st.write("Heat Map")
+        st.title("Heat Map")
         sn.heatmap(df_cm, cmap="Blues", annot=True,annot_kws={"size": 16}, xticklabels = colum, yticklabels = colum)
         st.pyplot(plt)
 
