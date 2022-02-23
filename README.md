@@ -15,7 +15,7 @@
 ## Setup/Installation Requirements
 
 * _Install docker in system_
-* _Add images folder in the /test directory
+* _Add images folder in the /test directory if neccesary
 * _Run: "docker-compose up" in your terminal inside your project folder path
 
 
@@ -23,6 +23,7 @@
 ## Known Bugs
 
 * _No active session state_
+* _Had to include more furtinure category in the selectbox_
 * _Working on incorporating the feedback mechanism_
 
 ## Contact Information
