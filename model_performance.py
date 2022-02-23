@@ -129,7 +129,6 @@ def image_loading(scoring_uri, key, category):
             'Predicted': predicted
             }   
         df = pd.DataFrame(data)
-        st.write(df)
         df["Ground_Truth"].replace({category: 1}, inplace=True)
         df['Truth'] = df['Ground_Truth'].apply(lambda x: 0 if x == category else 1)
         df['New_predict'] = df['Predicted'].apply(lambda x: 1 if x == category else 0)
@@ -142,6 +141,7 @@ def image_loading(scoring_uri, key, category):
         df_cm.columns.name = 'Predicted'
         plt.figure(figsize = (20,20))
         # sn.set(font_scale=1.4)#for label size
+        st.write("Heat Map")
         sn.heatmap(df_cm, cmap="Blues", annot=True,annot_kws={"size": 16}, xticklabels = colum, yticklabels = colum)
         st.pyplot(plt)
 
