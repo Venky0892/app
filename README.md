@@ -2,9 +2,7 @@
 
 #### _This web application is build to identify lifestyle objects in furniture images and access model performance with bounding box with unique color coding for every detected object, model performance, confusion matrix and the ability to download the result in a csv for furthur analysis. The trained model is yolov5 with 92% accuracy)_
 
-#### By _**Venkatesh Prasath Manoharan
-        _**Srinath Vishwanath
-        _**Akshaya Hariharan
+#### By _**Venkatesh Prasath Manoharan, Srinath Vishwanath, Akshaya Hariharan**_
 
 ## Technologies Used
 
