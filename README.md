@@ -1,8 +1,8 @@
 # _Object Detection Model_
 
-#### _This model help to identify lifestyle objects in images and model performance_
+#### _This model help to identify lifestyle objects in furniture images and access model performance with bounding box values with unique color coding, accuracy value, confusion matrix and ability to download the result in a csv for furthur analysis. The trained model is yolov5 with 92% accuracy)_
 
-#### By _**Venkatesh Prasath Manoharan, Srinath Vishwanath**_
+#### By _**Venkatesh Prasath Manoharan, Srinath Vishwanath, Akshaya Hariharan**_
 
 ## Technologies Used
 
