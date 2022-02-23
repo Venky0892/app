@@ -14,6 +14,15 @@
 * _Streamlit_
 * _Docker_
 
+
+
+## Setting to change into feedback app 
+
+* _Go app/Dockerfile_
+* _Change requirements_model.txt to requirements_text_
+* _Last line: Change the file name model_performance.py to image_object.py
+
+
 ## Setup/Installation Requirements
 
 * _Install docker in system_
@@ -26,7 +35,7 @@
 
 * _No active session state_
 * _Had to include more furtinure category in the selectbox_
-* _Working on incorporating the feedback mechanism_
+* _Working on incorporating the feedback mechanism feature in same app_
 
 ## Contact Information
 
