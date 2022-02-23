@@ -16,7 +16,7 @@
 
 
 
-## Setting to change into feedback app 
+## Setting to change into feedback mechanism app 
 
 * _Go app/Dockerfile_
 * _Change requirements_model.txt to requirements_text_
