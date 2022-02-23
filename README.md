@@ -1,8 +1,8 @@
-# _{Application Name}_
+# _{Object Detection Model}_
 
-#### _{Brief description of application}_
+#### _{This model help to identify lifestyle objects in images and model performance}_
 
-#### By _**{List of contributors}**_
+#### By _**{Venkatesh Prasath Manoharan, Srinivas Vishwanath}**_
 
 ## Technologies Used
 
