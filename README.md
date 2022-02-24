@@ -37,6 +37,10 @@
 * _Had to include more furtinure category in the selectbox_
 * _Working on incorporating the feedback mechanism feature in same app_
 
+## App Link
+
+_Link: https://share.streamlit.io/venky0892/app/model_performance.py_
+
 ## Contact Information
 
 _Linkedin link https://www.linkedin.com/in/venkatesh-prasath-manoharan-918091133/_

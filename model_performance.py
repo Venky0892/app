@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 # from turtle import onclick
+=======
+>>>>>>> dd6d2dd4d12beb22d0db406e417ae7b5d8aa43b5
 import streamlit as st
 import pickle
 from pathlib import Path
@@ -128,10 +131,14 @@ def image_loading(scoring_uri, key, category):
             name.append(filename)
             ground_truth.append(gtruth)
             predicted.append(pred)
+<<<<<<< HEAD
         try:
             st.metric(label = 'Predicted no of class: ', value = inf.total_value(n))
         except AttributeError:
             st.write("Check for streamlit version which has metric method")
+=======
+        st.sidebar.metric(label = 'Correctly predicted: ', value = inf.total_value(n))
+>>>>>>> dd6d2dd4d12beb22d0db406e417ae7b5d8aa43b5
 
    
         data = {'Filename': name,
@@ -139,7 +146,6 @@ def image_loading(scoring_uri, key, category):
             'Predicted': predicted
             }   
         df = pd.DataFrame(data)
-        st.write(df)
         df["Ground_Truth"].replace({category: 1}, inplace=True)
         df['Truth'] = df['Ground_Truth'].apply(lambda x: 0 if x == category else 1)
         df['New_predict'] = df['Predicted'].apply(lambda x: 1 if x == category else 0)
@@ -152,6 +158,7 @@ def image_loading(scoring_uri, key, category):
         df_cm.columns.name = 'Predicted'
         plt.figure(figsize = (20,20))
         # sn.set(font_scale=1.4)#for label size
+        st.title("Heat Map")
         sn.heatmap(df_cm, cmap="Blues", annot=True,annot_kws={"size": 16}, xticklabels = colum, yticklabels = colum)
         st.pyplot(plt)
 
