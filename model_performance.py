@@ -65,7 +65,10 @@ def sidebar():
                 # date 27/01/2022 best so far 
             #key = 'EOrnj7U2vznn80ivScnw64het1hejtuw'   
             key = 'FBLyfUOpQe8PS8DuGKNxTO3z63fKcSUA'
-            image_loading(scoring_uri, key, category)
+            try:
+                image_loading(scoring_uri, key, category)
+            except ValueError:
+                st.error("Waiting!!!!!!!!!!!!!!!!!!!!!!")
 
         if 'yolo' in choose:
             #scoring_uri = "http://20.80.224.182:80/api/v1/service/automl-image-7k-images/score" # 7k Images - Mean average precision Yolo
@@ -79,8 +82,11 @@ def sidebar():
 
         if 'fastrcnnresnt50fast' in choose:
             scoring_uri = "http://20.80.224.182:80/api/v1/service/automl-image-best-fastrcnn-11k/score"
-            key = 'KzxANdalm3l87oakfI3eUi1apocJ51RT'
-            image_loading(scoring_uri, key, category)
+            # key = 'KzxANdalm3l87oakfI3eUi1apocJ51RT'
+            try:
+                image_loading(scoring_uri, key, category)
+            except ValueError:
+                st.write("Waiting!!!!!!!!!!!!!!!!!!!!!!!")
 
 def image_loading(scoring_uri, key, category):
 
@@ -122,7 +128,10 @@ def image_loading(scoring_uri, key, category):
             name.append(filename)
             ground_truth.append(gtruth)
             predicted.append(pred)
-        st.metric(label = 'Predicted no of class: ', value = inf.total_value(n))
+        try:
+            st.metric(label = 'Predicted no of class: ', value = inf.total_value(n))
+        except AttributeError:
+            st.write("Check for streamlit version which has metric method")
 
    
         data = {'Filename': name,
