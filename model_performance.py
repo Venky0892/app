@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# from turtle import onclick
-=======
->>>>>>> dd6d2dd4d12beb22d0db406e417ae7b5d8aa43b5
 import streamlit as st
 import pickle
 from pathlib import Path
@@ -71,7 +67,7 @@ def sidebar():
             try:
                 image_loading(scoring_uri, key, category)
             except ValueError:
-                st.error("Waiting!!!!!!!!!!!!!!!!!!!!!!")
+                st.error("The model is in developement")
 
         if 'yolo' in choose:
             #scoring_uri = "http://20.80.224.182:80/api/v1/service/automl-image-7k-images/score" # 7k Images - Mean average precision Yolo
@@ -89,7 +85,7 @@ def sidebar():
             try:
                 image_loading(scoring_uri, key, category)
             except ValueError:
-                st.write("Waiting!!!!!!!!!!!!!!!!!!!!!!!")
+                st.write("The model is in developement")
 
 def image_loading(scoring_uri, key, category):
 
@@ -131,14 +127,11 @@ def image_loading(scoring_uri, key, category):
             name.append(filename)
             ground_truth.append(gtruth)
             predicted.append(pred)
-<<<<<<< HEAD
         try:
             st.metric(label = 'Predicted no of class: ', value = inf.total_value(n))
         except AttributeError:
             st.write("Check for streamlit version which has metric method")
-=======
         st.sidebar.metric(label = 'Correctly predicted: ', value = inf.total_value(n))
->>>>>>> dd6d2dd4d12beb22d0db406e417ae7b5d8aa43b5
 
    
         data = {'Filename': name,
