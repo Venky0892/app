@@ -25,17 +25,8 @@ def main():
     sidebar()
 
 def body():
-    st.title("Inference App")
-    st.write(
-        """
-        ## 🐾 Model Predictions
-        
-        This is one for all machine learning fans: Predicting images and all of your 
-        annotations are preserved in `st.session_state`!
-        """
-    )
-
-
+    st.title("Objection Detection App")
+    
 # @st.cache
 def sidebar():
 
