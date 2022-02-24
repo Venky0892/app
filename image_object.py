@@ -26,10 +26,10 @@ def main():
     sidebar()
 
 def body():
-    st.title("Inference App")
+    st.title("Detection Feedback App")
     st.markdown(
         """
-       This application is used to test the model performance.
+       This application is used to access the model performance by feedback mechanism.
         """, unsafe_allow_html=True)
 
 # @st.cache
