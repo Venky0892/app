@@ -1,3 +1,4 @@
+from tkinter.messagebox import NO
 from turtle import onclick
 import streamlit as st
 import pickle
@@ -55,6 +56,13 @@ def thumpsdown(down):
 
     return thumpsdown
 
+@st.cache
+def convert_df(df):
+   return df.to_csv().encode('utf-8')
+
+
+
+
 def form_callback():
     st.write(st.session_state.my_slider)
     st.write(st.session_state.my_checkbox)
@@ -62,14 +70,22 @@ def form_callback():
 def image_loading():
 
     # choose = st.sidebar.selectbox('Choose Model', ('fastrcnnresnt50fast', 'yolo', 'fastrcnnresnet50'))
-    category = st.sidebar.selectbox('Choose the category', ('chair','bench','buffet','sofa', 'coffee-table','planter','side-table'))
-
+    category = st.sidebar.selectbox('Choose the category', ('basket', 'bench', 'buffet', 'chair', 'chandeliers', 'crib', 'desk', 'wall-mirror', 'side-table', 'dining-chair', 'dining-table',
+        'dresser', 'media-storage', 'office-chair', 'ottoman', 'planter', 'sectional', 'shelving', 'coffee-table'))
+    count_images = 0
     images = "test/" + category + "/"
-    count_images = len(os.listdir(images))
-    # txt = st.text_area('Number of Images')
-    
 
-    st.sidebar.write('count_of_images: ', count_images)
+    if not images:
+        raise NotValidFolder
+
+    try:
+        count_images = len(os.listdir(images))
+    except:
+        st.write('Try selecting the folder which has images')
+    # txt = st.text_area('Number of Images')
+
+    if count_images:
+        st.sidebar.write('count_of_images: ', count_images)
     n = 0
     ground_truth = list()
     predicted = list()
@@ -94,7 +110,6 @@ def image_loading():
     rel_path = "test"
     abs_file_path = script_path + "/" + rel_path + "/" + category
     files = os.listdir(abs_file_path)
-
     scoring_uri = "http://20.80.224.182:80/api/v1/service/yolo-9056p/score"
     key = 'f85tEoGIHpXX6r57qfspDnXKKdtUpbA2'
 
@@ -103,7 +118,7 @@ def image_loading():
                 st.session_state.annotations = {}
                 st.session_state.files = files
                 st.session_state.current_image = files[0]
-
+    @st.cache(allow_output_mutation=True)
     def annotate(label):
         st.session_state.annotations[st.session_state.current_image] = label
         if st.session_state.files:
@@ -142,11 +157,16 @@ def image_loading():
             st.sidebar.button("This is a False!", on_click=annotate, args=("Wrong",), key = str(down))
         else:
             st.success(
-                f"🎈 Done! All {len(st.session_state.annotations)} images annotated."
+                f"🎈 Done! All {len(st.session_state.annotations)} images annotated." 
+                f" Output CSV file download in your directory!"
+
             )
     st.write("### Annotations")
     # st.write(st.session_state.annotations)
-    st.write(pd.DataFrame.from_dict(st.session_state.annotations, orient='index'))
+    df = pd.DataFrame.from_dict(st.session_state.annotations, orient='index')
+    st.write(df)
+    df.to_csv('out.csv')
+    
     
     up += 1
     down += 2
@@ -193,6 +213,11 @@ def store():
             st.code(value)
 
     return result
+
+class NotValidFolder(Exception):
+  """Raised when folder doesnt exist in the directory"""
+  def __str__(self):
+    return "Try changing different folder which contains images"
 
 
 if __name__=='__main__':
