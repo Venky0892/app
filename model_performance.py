@@ -8,6 +8,7 @@ import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import os
 import time
+import urllib.request
 from typing import Dict
 import numpy as np 
 import seaborn as sn
@@ -61,12 +62,15 @@ def sidebar():
                 st.error("The model is in developement")
 
         if 'yolo' in choose:
-            #scoring_uri = "http://20.80.224.182:80/api/v1/service/automl-image-7k-images/score" # 7k Images - Mean average precision Yolo
-            #key = 'f85tEoGIHpXX6r57qfspDnXKKdtUpbA2'
-            scoring_uri = "http://20.80.224.182:80/api/v1/service/yolo-9056p/score"
-            key = 'f85tEoGIHpXX6r57qfspDnXKKdtUpbA2'
+            # scoring_uri = "http://20.80.224.182:80/api/v1/service/automl-image-7k-images/score" # 7k Images - Mean average precision Yolo
+            # key = 'f85tEoGIHpXX6r57qfspDnXKKdtUpbA2'
+            # scoring_uri = "http://20.97.146.230:80/api/v1/service/venkat35/score"
+            # key = 'f85tEoGIHpXX6r57qfspDnXKKdtUpbA2'
             # scoring_uri = "http://20.80.224.182:80/api/v1/service/automl-image-best-hyper/score" # hyper-best
             # key = 'p3EYDvgcZ1meIlYjQvw7REDXgRr0RVEw' # hyper (yolo)
+
+            scoring_uri = "http://20.97.146.230:80/api/v1/service/yolowebs/score"
+            key = 'd22z4wWv0F9cLrIeqGfR7xnv40CxvavU'
 
             image_loading(scoring_uri, key, category)
 
@@ -111,7 +115,8 @@ def image_loading(scoring_uri, key, category):
 
             # If authentication is enabled, set the authorization header
             headers['Authorization'] = f'Bearer {key}'
-
+            # headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ key)}
+            # resp = urllib.request.Request(scoring_uri, data, headers)
             # Make the request and display the response
             resp = requests.post(scoring_uri, data, headers=headers)
             n, gtruth, pred = inf.load_image(images + filename, resp.text, n, category)
@@ -122,7 +127,7 @@ def image_loading(scoring_uri, key, category):
             st.metric(label = 'Predicted no of class: ', value = inf.total_value(n))
         except AttributeError:
             st.write("Check for streamlit version which has metric method")
-        st.sidebar.metric(label = 'Correctly predicted: ', value = inf.total_value(n))
+        st.sidebar.write("Correctly predicted: ", inf.total_value(n))
 
    
         data = {'Filename': name,
