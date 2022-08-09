@@ -69,7 +69,7 @@ def form_callback():
 
 def image_loading():
 
-    # choose = st.sidebar.selectbox('Choose Model', ('fastrcnnresnt50fast', 'yolo', 'fastrcnnresnet50'))
+    choose = st.sidebar.selectbox('Choose Model', ('fastrcnnresnt50fast', 'yolo', 'fastrcnnresnet50'))
     category = st.sidebar.selectbox('Choose the category', ('basket', 'bench', 'buffet', 'chair', 'chandeliers', 'crib', 'desk', 'wall-mirror', 'side-table', 'dining-chair', 'dining-table',
         'dresser', 'media-storage', 'office-chair', 'ottoman', 'planter', 'sectional', 'shelving', 'coffee-table'))
     count_images = 0
@@ -110,7 +110,8 @@ def image_loading():
     rel_path = "test"
     abs_file_path = script_path + "/" + rel_path + "/" + category
     files = os.listdir(abs_file_path)
-    scoring_uri = "http://20.80.224.182:80/api/v1/service/yolo-9056p/score"
+    
+    scoring_uri = "http://20.97.146.230:80/api/v1/service/app-demo/score"
     key = 'f85tEoGIHpXX6r57qfspDnXKKdtUpbA2'
 
 

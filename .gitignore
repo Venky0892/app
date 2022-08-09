@@ -1,2 +1,8 @@
 /credentials.toml
 /docker-compose.yml
+__pycache__/catboost.cpython-39.pyc
+__pycache__/image_section.cpython-39.pyc
+__pycache__/image_section.cpython-
+saved_model.pkl
+yolov5s.pt
+test/lifestyle/

@@ -43,8 +43,8 @@ def sidebar():
 )
 
     
-    choose = st.sidebar.selectbox('Choose Model', ('fastrcnnresnt50fast', 'yolo', 'fastrcnnresnet50'))
-    category = st.sidebar.selectbox('Choose the category', ('chair','bench','buffet','sofa', 'coffee-table','planter','side-table'))
+    choose = st.sidebar.selectbox('Choose Model', ('yolo', 'fastrcnnresnt50fast', 'fastrcnnresnet50'))
+    category = st.sidebar.selectbox('Choose the category', ('chair','bench','buffet','sofa', 'coffee-table','planter','side-table','lifestyle'))
 
 
     if st.sidebar.button("Process"):
@@ -69,7 +69,7 @@ def sidebar():
             # scoring_uri = "http://20.80.224.182:80/api/v1/service/automl-image-best-hyper/score" # hyper-best
             # key = 'p3EYDvgcZ1meIlYjQvw7REDXgRr0RVEw' # hyper (yolo)
 
-            scoring_uri = "http://20.97.146.230:80/api/v1/service/yolowebs/score"
+            scoring_uri = "http://20.97.146.230:80/api/v1/service/app-demo/score"
             key = 'd22z4wWv0F9cLrIeqGfR7xnv40CxvavU'
 
             image_loading(scoring_uri, key, category)
@@ -119,15 +119,15 @@ def image_loading(scoring_uri, key, category):
             # resp = urllib.request.Request(scoring_uri, data, headers)
             # Make the request and display the response
             resp = requests.post(scoring_uri, data, headers=headers)
-            n, gtruth, pred = inf.load_image(images + filename, resp.text, n, category)
+            n_new, gtruth, pred = inf.load_image(images + filename, resp.text, n, category)
             name.append(filename)
             ground_truth.append(gtruth)
             predicted.append(pred)
         try:
-            st.metric(label = 'Predicted no of class: ', value = inf.total_value(n))
+            st.metric(label = 'Predicted no of class: ', value = inf.total_value(n_new))
         except AttributeError:
             st.write("Check for streamlit version which has metric method")
-        st.sidebar.write("Correctly predicted: ", inf.total_value(n))
+        # st.sidebar.write("Correctly predicted: ", inf.total_value(n))
 
    
         data = {'Filename': name,
@@ -140,30 +140,32 @@ def image_loading(scoring_uri, key, category):
         df['New_predict'] = df['Predicted'].apply(lambda x: 1 if x == category else 0)
         csv = convert_df(df)
         colum = ["desk","dining-table","chair","dining-chair","sofa","sectional","coffee-table","side-table","shelving","planter","wall-mirror","basket","buffet","chandeliers","media-storage","dresser","ottoman","bench","office-chair","crib","bed"]
-
-        dc = confusion_matrix(ground_truth, predicted, labels = colum)
-        df_cm = pd.DataFrame(dc)
-        df_cm.index.name = 'Actual'
-        df_cm.columns.name = 'Predicted'
-        plt.figure(figsize = (20,20))
-        # sn.set(font_scale=1.4)#for label size
-        st.title("Heat Map")
-        sn.heatmap(df_cm, cmap="Blues", annot=True,annot_kws={"size": 16}, xticklabels = colum, yticklabels = colum)
-        st.pyplot(plt)
+        try:
+            dc = confusion_matrix(ground_truth, predicted, labels = colum)
+            df_cm = pd.DataFrame(dc)
+            df_cm.index.name = 'Actual'
+            df_cm.columns.name = 'Predicted'
+            plt.figure(figsize = (20,20))
+            # sn.set(font_scale=1.4)#for label size
+            st.title("Heat Map")
+            sn.heatmap(df_cm, cmap="Blues", annot=True,annot_kws={"size": 15}, xticklabels = colum, yticklabels = colum, )
+            st.pyplot(plt)
+        except:
+            pass
 
 
 
         # # st.pyplot()
-        acc = accuracy_score(df['Truth'], df['New_predict'])
-        st.sidebar.write("Accuracy", acc )
-        st.sidebar.write("Dataframe", df)
-        st.sidebar.download_button(
-            label="Download data as CSV",
-            data=csv,
-            file_name='large_df.csv',
-            mime='text/csv',
-        )
-        st.sidebar.write("Confusion_Matrix", dc)
+        # acc = accuracy_score(df['Truth'], df['New_predict'])
+        # st.sidebar.write("Accuracy", acc )
+        # st.sidebar.write("Dataframe", df)
+        # st.sidebar.download_button(
+        #     label="Download data as CSV",
+        #     data=csv,
+        #     file_name='large_df.csv',
+        #     mime='text/csv',
+        # )
+        # st.sidebar.write("Confusion_Matrix", dc)
         st.balloons()
 
 def show():

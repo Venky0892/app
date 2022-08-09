@@ -7,7 +7,7 @@ import numpy as np
 import streamlit as st
 import random
 import json
-from webcolors import rgb_to_name, hex_to_name, css3_hex_to_names, hex_to_rgb
+from webcolors import rgb_to_name, hex_to_name, CSS3_HEX_TO_NAMES, hex_to_rgb
 from PIL import ImageColor
 from scipy.spatial import KDTree
 
@@ -29,7 +29,7 @@ class Inference():
     def convert_rgb_to_names(self, rgb_tuple):
     
     # a dictionary of all the hex and their respective names in css3
-        css3_db = css3_hex_to_names
+        css3_db = CSS3_HEX_TO_NAMES
         names = []
         rgb_values = []
         for color_hex, color_name in css3_db.items():
@@ -51,7 +51,7 @@ class Inference():
         img = Image.fromarray(img_np.astype('uint8'),'RGB')
         x, y = img.size
 
-        fig,ax = plt.subplots(1, figsize=(10,10))
+        fig,ax = plt.subplots(1, figsize=(10, 10))
         # Display the image
         ax.imshow(img_np)
 
@@ -70,7 +70,7 @@ class Inference():
             detect['color'] = color_name
 
             
-            if conf_score > 0.5:
+            if conf_score > 0.3:
                 ymin, xmin, ymax, xmax =  box['topY'],box['topX'], box['bottomY'],box['bottomX']
                 topleft_x, topleft_y = x * xmin, y * ymin
                 width, height = x * (xmax - xmin), y * (ymax - ymin)
